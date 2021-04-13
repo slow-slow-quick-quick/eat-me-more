@@ -3,32 +3,36 @@
  * [HISTORY]
  * 테스트 케이스 8, 9, 10 -> 시간초과
  * 테스트 케이스 9, 10 -> 시간초과
+ * 반복문을 한번만 사용하여 구현중
  */
 function solution(number, k) {
   let answer = "";
-  let tmpArr = [];
-  let cnt = 0;
+  let maxNum = 1;
 
-  number.split("").forEach((element) => {
-    if (tmpArr.length > 0) {
-      for (let i = tmpArr.length; i > -1; i--) {
-        if (tmpArr[i] > element) {
-          break;
-        }
-        if (tmpArr[i] < element && k > 0) {
-          tmpArr.pop();
-          k--;
+  if (number.length == k) {
+    return number;
+  }
+
+  number.split("").forEach((element, idx) => {
+    if (number.length - idx < k) {
+      // 남은 인덱스 갯수가 구해야 하는 자리수보다 적게 남아서 max 값을 첫번째 자리로 변경하지 못하는 경우
+      let preNum = answer.split("")[k - 1];
+      return preNum > element ? answer : answer.substring(0, k - 1) + preNum;
+    }
+
+    if (element > maxNum) {
+      maxNum = element;
+      answer = maxNum;
+    } else {
+      if (answer.length < k) {
+        preNum = answer.split("")[answer.length - 1];
+        if (preNum < element) {
+          answer = answer.substring(0, answer.length - 1) + preNum;
+        } else {
+          answer = answer + element;
         }
       }
     }
-    if (cnt < number.length - k) {
-      tmpArr.push(element);
-      cnt++;
-    }
-  });
-
-  tmpArr.forEach((element) => {
-    answer += element;
   });
 
   return answer;
@@ -37,9 +41,10 @@ function solution(number, k) {
 // 테스트
 test.each([
   ["1924", 2, "94"],
-  ["1231234", 3, "3234"],
-  ["4177252841", 4, "775841"],
+  ["1231234", 3, "334"],
+  ["4177252841", 4, "7784"],
   ["81", 1, "8"],
+  ["17", 2, "17"],
 ])("그리드 - 큰 수 만들기", (number, k, result) => {
   expect(solution(number, k)).toBe(result);
 });
