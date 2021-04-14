@@ -4,35 +4,40 @@
  * 테스트 케이스 8, 9, 10 -> 시간초과
  * 테스트 케이스 9, 10 -> 시간초과
  * 반복문을 한번만 사용하여 구현중
+ * 7752 -> 7758 로 변하는 과정 예외처리 못함
  */
 function solution(number, k) {
   let answer = "";
   let maxNum = 1;
+  let preNum = number.split("")[0];
+  let numLength = number.length;
 
-  if (number.length == k) {
+  if (numLength == k) {
     return number;
   }
 
   number.split("").forEach((element, idx) => {
-    if (number.length - idx < k) {
-      // 남은 인덱스 갯수가 구해야 하는 자리수보다 적게 남아서 max 값을 첫번째 자리로 변경하지 못하는 경우
-      let preNum = answer.split("")[k - 1];
-      return preNum > element ? answer : answer.substring(0, k - 1) + preNum;
-    }
-
-    if (element > maxNum) {
-      maxNum = element;
-      answer = maxNum;
+    if (k - answer.length == numLength - idx) {
+      answer += element;
     } else {
-      if (answer.length < k) {
-        preNum = answer.split("")[answer.length - 1];
-        if (preNum < element) {
-          answer = answer.substring(0, answer.length - 1) + preNum;
+      if (preNum <= element) {
+        // 작은 경우는 없음, 이미 위에서 걸러짐
+        if (maxNum < element && numLength - idx - 1 >= k) {
+          maxNum = element;
+          answer = maxNum;
+        } else if (maxNum == element) {
+          answer += element;
         } else {
-          answer = answer + element;
+          answer = answer.substring(0, answer.length - 1) + element;
+        }
+      } else {
+        if (answer.length < k) {
+          answer += element;
         }
       }
     }
+    //console.log(answer);
+    preNum = answer.split("")[answer.length - 1];
   });
 
   return answer;
