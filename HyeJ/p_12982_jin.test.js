@@ -2,12 +2,16 @@
  * [프로그래머스 > Summer/Winter Coding(~2018) > 예산]
  * [HISTORY]
  * 다양한 테스트 케이스 체크 필요
+ * 통과
  */
 function solution(d, budget) {
   let answer = 0;
   let total = 0;
 
-  d.sort().forEach((element) => {
+  // d.sort();
+  // 아스키코드로 정렬되기 때문에 실제 크기순으로 정렬 불가
+
+  d.sort((a, b) => a - b).forEach((element) => {
     total += element;
     if (total <= budget) {
       answer += 1;
