@@ -18,39 +18,42 @@ function solution(number, k) {
   }
 
   for (let i = 0; i < numLength; i++) {
+    // 1. 아직 아무것도 선택하지 않았을 경우
     if (answer.length == 0) {
       answer = numArr[i];
       continue;
     }
 
+    // 2. 남은 정답 갯수와 정답으로 선택 가능한 갯수가 동일한 경우
     if (resK - answer.length == numLength - i) {
       answer += numArr[i];
       continue;
     }
 
-    // if (resK <= numLength - i) {
-    let answerArr = answer.split("");
-    for (let j = 0; j < answer.length; j++) {
-      if (numArr[i] == answerArr[j]) {
+    // 3. 정답 자리수보다 선택 가능한 갯수가 많거나 동일한 경우 -> 아얘 맨 앞자리를 교체
+    if (resK <= numLength - i) {
+      let answerArr = answer.split("");
+      let j = answer.length - 1;
+
+      while (answerArr[j] > numArr[i]) {
+        j--;
+      }
+
+      if (j == answer.length - 1) {
         answer += numArr[i];
-        break;
-      }
-      if (numArr[i] > answerArr[j]) {
+      } else {
         answer = answer.substring(0, j) + numArr[i];
-        break;
       }
-      //answer += numArr[i];
     }
 
-    // answer.split("").forEach((e, idx) => {
-    //   if (numArr[i] == e) {
+    // // 4. 그 외의 경우, 정답 끝에서부터 현재 선택한 숫자와 교체할지 그냥 이어 붙일지 체크
+    // let answerArr = answer.split("");
+    // for(let j = answer.length-1; j > -1; j++) {
+    //   if(answerArr[j] < numArr[i]) {
+
+    //   } else {
     //     answer += numArr[i];
-    //     numArr[i] = -1;
-    //   } else if (numArr[i] > e) {
-    //     answer = answer.substring(0, idx) + numArr[i];
-    //     numArr[i] = -1;
     //   }
-    // });
     // }
   }
 
