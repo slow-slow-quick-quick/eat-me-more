@@ -1,7 +1,8 @@
 /*
  * [프로그래머스 > 연습문제 > 시저암호]
  * [HISTORY]
- * 진행
+ * 통과
+ *
  */
 function solution(s, n) {
   let answer = "";
@@ -23,7 +24,6 @@ function solution(s, n) {
       answer += e;
     }
   });
-
   return answer;
 }
 
