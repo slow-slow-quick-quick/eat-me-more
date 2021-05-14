@@ -11,19 +11,13 @@ function solution(s, n) {
     var newCode = originCode + n;
 
     if (originCode >= "A".charCodeAt(0) && originCode <= "Z".charCodeAt(0)) {
-      newCode =
-        newCode >= "Z".charCodeAt(0)
-          ? newCode - "Z".charCodeAt(0) + "A".charCodeAt(0) - 1
-          : newCode;
+      newCode = newCode > "Z".charCodeAt(0) ? newCode - 26 : newCode;
       answer += String.fromCharCode(newCode);
     } else if (
       originCode >= "a".charCodeAt(0) &&
       originCode <= "z".charCodeAt(0)
     ) {
-      newCode =
-        newCode >= "z".charCodeAt(0)
-          ? newCode - "z".charCodeAt(0) + "a".charCodeAt(0) - 1
-          : newCode;
+      newCode = newCode > "z".charCodeAt(0) ? newCode - 26 : newCode;
       answer += String.fromCharCode(newCode);
     } else {
       answer += e;
@@ -41,6 +35,7 @@ test.each([
   ["Z ", 2, "B "],
   ["y", 25, "x"],
   ["bC", 25, "aB"],
+  ["z", 3, "c"],
 ])("연습 - 시저암호", (s, n, result) => {
   expect(solution(s, n)).toBe(result);
 });
