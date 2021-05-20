@@ -2,14 +2,19 @@
  * [프로그래머스 > 완주하지 못한 선수]
  * [HISTORY]
  * 동명이인 예외처리 필요
+ * 효율성 시간초과
  */
 function solution(participant, completion) {
   let answer = "";
-  participant.forEach((element) => {
-    if (!completion.includes(element)) {
-      answer = element;
+
+  completion.forEach((element) => {
+    let idx = participant.indexOf(element);
+    if (idx !== -1) {
+      participant.splice(idx, 1);
     }
   });
+
+  answer = participant[0];
 
   return answer;
 }
