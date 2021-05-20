@@ -31,8 +31,8 @@ function solution(participant, completion) {
 test.each([
   [["leo", "kiki", "eden"], ["eden", "kiki"], "leo"],
   [
-    ["marina", "josipa", "nikola", "vinko", "filipa"], // filipa, jospia, marina, nikola, vinko
-    ["josipa", "filipa", "marina", "nikola"], // filpa, jospia, marina, nikola
+    ["marina", "josipa", "nikola", "vinko", "filipa"],
+    ["josipa", "filipa", "marina", "nikola"],
     "vinko",
   ],
   [
