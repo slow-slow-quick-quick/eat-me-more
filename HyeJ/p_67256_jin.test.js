@@ -6,7 +6,7 @@
  */
 function solution(numbers, hand) {
   let answer = "";
-  /* 이전에 눌렀던 숫자 */
+  /* 이전에 눌렀던 숫자 - '#', '*'을 -1로 대체 */
   let lNum = -1;
   let rNum = -1;
   /* 현재 위치 */
@@ -20,15 +20,15 @@ function solution(numbers, hand) {
 
   numbers.forEach((e) => {
     if (e === 1 || e === 4 || e === 7) {
-      lLocation = lNumbers.findIndex((el) => e === el);
+      lLocation = getLocation(lNumbers, e);
       lNum = e;
       answer += "L";
     } else if (e === 3 || e === 6 || e === 9) {
-      rLocation = rNumbers.findIndex((er) => e === er);
+      rLocation = getLocation(rNumbers, e);
       rNum = e;
       answer += "R";
     } else {
-      cLocation = cNumberse.findIndex((ec) => e === ec);
+      cLocation = getLocation(cNumberse, e);
 
       let lDist = Math.abs(lLocation - cLocation);
       let rDist = Math.abs(rLocation - cLocation);
@@ -43,20 +43,20 @@ function solution(numbers, hand) {
       }
 
       if (lDist < rDist) {
-        lLocation = cNumberse.findIndex((ec) => e === ec);
+        lLocation = getLocation(cNumberse, e);
         lNum = e;
         answer += "L";
       } else if (lDist > rDist) {
-        rLocation = cNumberse.findIndex((ec) => e === ec);
+        rLocation = getLocation(cNumberse, e);
         rNum = e;
         answer += "R";
       } else {
         if (hand === "left") {
-          lLocation = cNumberse.findIndex((ec) => e === ec);
+          lLocation = getLocation(cNumberse, e);
           lNum = e;
           answer += "L";
         } else {
-          rLocation = cNumberse.findIndex((ec) => e === ec);
+          rLocation = getLocation(cNumberse, e);
           rNum = e;
           answer += "R";
         }
@@ -65,6 +65,10 @@ function solution(numbers, hand) {
   });
 
   return answer;
+}
+
+function getLocation(numbers, e) {
+  return numbers.findIndex((e1) => e === e1);
 }
 
 // 테스트
