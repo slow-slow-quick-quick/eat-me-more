@@ -1,13 +1,14 @@
 /*
  * [프로그래머스 > 2020 카카오 인턴십 > 키패드 누르기]
  * [HISTORY]
- * 실패: 8번, 15번
+ * 실패: 8번, 15번 -> 왼쪽, 오른쪽 초기화 필요
+ * 통과 (로직 좀더 보완)
  */
 function solution(numbers, hand) {
   let answer = "";
   /* 이전에 눌렀던 숫자 */
-  let lNum = 0;
-  let rNum = 0;
+  let lNum = -1;
+  let rNum = -1;
   /* 현재 위치 */
   let lLocation = 3;
   let rLocation = 3;
@@ -32,11 +33,12 @@ function solution(numbers, hand) {
       let lDist = Math.abs(lLocation - cLocation);
       let rDist = Math.abs(rLocation - cLocation);
 
-      if (lNum === 1 || lNum === 4 || lNum === 7) {
+      /* '왼쪽->중앙' 또는 '오른쪽->중앙'인 경우 거리가 1추가 */
+      if (lNum === 1 || lNum === 4 || lNum === 7 || lNum === -1) {
         lDist += 1;
       }
 
-      if (rNum === 3 || rNum === 6 || rNum === 9) {
+      if (rNum === 3 || rNum === 6 || rNum === 9 || rNum === -1) {
         rDist += 1;
       }
 
