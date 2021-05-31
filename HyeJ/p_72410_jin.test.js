@@ -1,13 +1,15 @@
 /*
  * [프로그래머스 > 2021 카카오 블라인드 > 신규 아이디 추천]
  * [HISTORY]
- * 실패 : 6번, 24번
+ * 실패 : 6번, 24번 -> 대문자를 소문자로 변환하는 함수 수정
+ * 통과 (정규식으로도 작성해보기)
  */
 function solution(new_id) {
   let answer = "";
   let newIdArr = new_id.split("");
 
-  let changeUpperCase = (prevChr, newIdChr) => prevChr + newIdChr.toLowerCase();
+  let changeUpperCase = (prevChr, newIdChr) =>
+    prevChr.toLowerCase() + newIdChr.toLowerCase();
   let changeOneDot = (prevChr, newIdChr) => {
     if (prevChr.split("")[prevChr.length - 1] === "." && newIdChr === ".") {
       return prevChr;
@@ -72,6 +74,18 @@ test.each([
   ["=.=", "aaa"],
   ["123_.def", "123_.def"],
   ["abcdefghijklmn.p", "abcdefghijklmn"],
+  ["aaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaa"],
+  ["aaa", "aaa"],
+  [" ", "aaa"],
+  ["abcdefghijklmnopqrstuvwxyz", "abcdefghijklmno"],
+  ["[][][][][][][][][][].", "aaa"],
+  [".", "aaa"],
+  ["...", "aaa"],
+  ["...a...", "aaa"],
+  ["...abc...", "abc"],
+  ["...a.b.c...", "a.b.c"],
+  ["aaaa.", "aaaa"],
+  ["AAAAA..", "aaaaa"],
 ])("연습 - 신규 아이디 추천", (new_id, result) => {
   expect(solution(new_id)).toBe(result);
 });
