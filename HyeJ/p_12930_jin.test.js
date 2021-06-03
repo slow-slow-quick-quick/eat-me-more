@@ -2,6 +2,7 @@
  * [프로그래머스 > 연습문제 > 이상한 문자 만들기]
  * [HISTORY]
  * 공백은 1개 이상이라는 조건을 고려하지 않음
+ * 통과
  */
 function solution(s) {
   let answer = "";
@@ -17,13 +18,14 @@ function solution(s) {
     answer += " ";
   });
 
-  return answer.trim();
+  return answer.substring(0, answer.length - 1);
 }
 
 // 테스트
 test.each([
   ["try   hello world", "TrY   HeLlO WoRlD"],
-  ["ABCDE ", "AbCdE"],
+  ["ABCDE ", "AbCdE "],
+  ["abc def gh", "AbC DeF Gh"],
 ])("연습 - 이상한 문자 만들기", (s, result) => {
   expect(solution(s)).toBe(result);
 });
