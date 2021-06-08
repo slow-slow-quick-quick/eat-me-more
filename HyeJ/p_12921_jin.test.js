@@ -2,26 +2,32 @@
  * [프로그래머스 > 연습문제 > 소수찾기]
  * [HISTORY]
  * 테스트10~12, 효율성 시간초과
+ * 에라토스테네스의 체 사용해보기
  */
 function solution(n) {
   var answer = 0;
 
   if (n === 2) return 1;
 
-  for (let i = 3; i <= n; i++) {
-    let flag = true;
-    for (let j = 2; j < i; j++) {
-      if (i % j === 0) {
-        flag = false;
-        j = i;
+  var nArr = [];
+  for (let i = 2; i <= n; i++) {
+    nArr.push(i);
+  }
+
+  for (let i = 0; i < nArr.length; i++) {
+    let tmp = nArr[i];
+    for (let j = 2; j < tmp; j++) {
+      if (tmp % j === 0) {
+        nArr = nArr.filter(function (n) {
+          return n % tmp !== 0;
+        });
       }
-    }
-    if (flag) {
-      answer++;
     }
   }
 
-  return answer + 1;
+  answer = nArr.length;
+
+  return answer;
 }
 
 // 테스트
