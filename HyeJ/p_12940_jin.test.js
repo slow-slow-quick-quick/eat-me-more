@@ -5,21 +5,30 @@
  */
 function solution(n, m) {
   let answer = [];
-  let nArr = [
-    [1, 1],
-    [n, 1],
-  ];
-  let mArr = [
-    [1, 1],
-    [m, 1],
-  ];
-  let nMod = n;
-  let i = 2;
-  let cnt = 0;
+  let gcd = 0;
+  let lcm = 0;
 
-  while (n >= 1) {
-    nMod = nMod / i;
+  function GCD(a, b) {
+    if (b === 0) {
+      return a;
+    } else {
+      return GCD(b, a % b);
+    }
   }
+
+  function LCM(a, b) {
+    return (a * b) / gcd;
+  }
+
+  if (n > m) {
+    gcd = GCD(n, m);
+  } else {
+    gcd = GCD(m, n);
+  }
+  lcm = LCM(n, m);
+
+  answer.push(gcd);
+  answer.push(lcm);
 
   return answer;
 }
