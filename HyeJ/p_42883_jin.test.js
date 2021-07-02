@@ -6,55 +6,28 @@
  * 반복문을 한번만 사용하여 구현중
  * 7752 -> 7758 로 변하는 과정 예외처리 못함
  * k값에 대해 잘못 파악
+ * ------ 방식 수정 ------
+ * 선택해야하는 개수만큼 뒤에서부터 자리수를 채운 후, 앞으로 오면서 max값 선정
+ * => 테스트 케이스 10 시간초과
  */
 function solution(number, k) {
   let answer = "";
   let numArr = number.split("");
-  let numLength = number.length;
-  let resK = numLength - k;
+  let maxNum = -1;
+  let l = -1;
+  let newidx = 0;
 
-  if (numLength == resK) {
-    return number;
-  }
-
-  for (let i = 0; i < numLength; i++) {
-    // 1. 아직 아무것도 선택하지 않았을 경우
-    if (answer.length == 0) {
-      answer = numArr[i];
-      continue;
-    }
-
-    // 2. 남은 정답 갯수와 정답으로 선택 가능한 갯수가 동일한 경우
-    if (resK - answer.length == numLength - i) {
-      answer += numArr[i];
-      continue;
-    }
-
-    // 3. 정답 자리수보다 선택 가능한 갯수가 많거나 동일한 경우 -> 아얘 맨 앞자리를 교체
-    if (resK <= numLength - i) {
-      let answerArr = answer.split("");
-      let j = answer.length - 1;
-
-      while (answerArr[j] > numArr[i]) {
-        j--;
-      }
-
-      if (j == answer.length - 1) {
-        answer += numArr[i];
-      } else {
-        answer = answer.substring(0, j) + numArr[i];
+  for (let i = k; i < number.length; i++) {
+    newidx = i;
+    maxNum = numArr[i];
+    for (let j = i - 1; j > l; j--) {
+      if (maxNum <= numArr[j]) {
+        maxNum = numArr[j];
+        newidx = j;
       }
     }
-
-    // // 4. 그 외의 경우, 정답 끝에서부터 현재 선택한 숫자와 교체할지 그냥 이어 붙일지 체크
-    // let answerArr = answer.split("");
-    // for(let j = answer.length-1; j > -1; j++) {
-    //   if(answerArr[j] < numArr[i]) {
-
-    //   } else {
-    //     answer += numArr[i];
-    //   }
-    // }
+    l = newidx;
+    answer += maxNum;
   }
 
   return answer;
