@@ -9,24 +9,28 @@
  * ------ 방식 수정 ------
  * 선택해야하는 개수만큼 뒤에서부터 자리수를 채운 후, 앞으로 오면서 max값 선정
  * => 테스트 케이스 10 시간초과
+ * 뒤에서 앞이 아닌, 앞에서 뒤로 가면서 max값 선정
+ * => 9가 나올경우 더이상 반복하지 않아도 되기 때문에 시간절약
+ * => 뒤에서 부터 검사할땐 앞에 더 큰 수가 있을 수 있기 때문에 불가했음
+ * 통과
  */
 function solution(number, k) {
   let answer = "";
   let numArr = number.split("");
-  let maxNum = -1;
-  let l = -1;
-  let newidx = 0;
+  let l = 0;
+  let startIdx = 0;
 
   for (let i = k; i < number.length; i++) {
-    newidx = i;
-    maxNum = numArr[i];
-    for (let j = i - 1; j > l; j--) {
-      if (maxNum <= numArr[j]) {
+    let maxNum = -1;
+    startIdx = i;
+    for (let j = l; j <= i; j++) {
+      if (maxNum < numArr[j]) {
         maxNum = numArr[j];
-        newidx = j;
+        startIdx = j;
+        if (maxNum === "9") break;
       }
     }
-    l = newidx;
+    l = startIdx + 1;
     answer += maxNum;
   }
 
