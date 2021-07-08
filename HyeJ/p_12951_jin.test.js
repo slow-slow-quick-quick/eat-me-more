@@ -2,10 +2,10 @@
  * [프로그래머스 > 연습문제 > JadenCase 문자열 만들기]
  * [HISTORY]
  * 실패
- * 첫번째 문자가 숫자만 있는 것은 아니라고 생각함
+ * 첫번째 문자가 숫자만 있는 것은 아니라고 생각함 -> 수정 -> 실패
+ * 공백 개수가 그대로 유지되어야 함
  */
 function solution(s) {
-  // 정답 배열 초기화
   let answer = "";
 
   let first_chr = s.split("")[0];
@@ -15,17 +15,20 @@ function solution(s) {
     for (var j = 0; j < sArr[i].length; j++) {
       if (i === 0) {
         if (j === 0) {
-          if (Number.isInteger(parseInt(first_chr))) {
+          if (
+            ("a" <= first_chr && first_chr <= "z") ||
+            ("A" <= first_chr && first_chr <= "Z")
+          ) {
+            sArr[i] = sArr[i].replace(
+              sArr[i].split("")[j],
+              sArr[i].split("")[j].toUpperCase()
+            );
+          } else {
             sArr[i] = sArr[i].replace(
               sArr[i].split("")[j + 1],
               sArr[i].split("")[j + 1].toLowerCase()
             );
             j++;
-          } else {
-            sArr[i] = sArr[i].replace(
-              sArr[i].split("")[j],
-              sArr[i].split("")[j].toUpperCase()
-            );
           }
         } else {
           sArr[i] = sArr[i].replace(
